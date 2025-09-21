@@ -1,15 +1,16 @@
-use serde::Serialize;
+use serde::{Serialize, de::DeserializeOwned};
 
 mod error;
 #[cfg(test)]
 mod test;
 
 #[derive(Serialize)]
-pub struct Payload<T: Serialize + Send + Sync> {
+#[serde(bound(serialize = "T: Serialize"))]
+pub struct Payload<T: Serialize + DeserializeOwned + Send + Sync> {
     data: T,
 }
 
-impl<T: Serialize + Send + Sync> Payload<T> {
+impl<T: Serialize + DeserializeOwned + Send + Sync> Payload<T> {
     pub const fn new(data: T) -> Self {
         Payload { data }
     }
