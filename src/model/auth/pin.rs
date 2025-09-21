@@ -14,3 +14,21 @@ impl Pin {
         &self.code
     }
 }
+
+impl From<String> for Pin {
+    fn from(code: String) -> Self {
+        Pin::new(code)
+    }
+}
+
+impl From<&str> for Pin {
+    fn from(code: &str) -> Self {
+        Pin::new(code.to_string())
+    }
+}
+
+impl Into<String> for Pin {
+    fn into(self) -> String {
+        self.code
+    }
+}
