@@ -7,9 +7,6 @@ struct TestProduct {
     items: Vec<String>,
 }
 
-unsafe impl Send for TestProduct {}
-unsafe impl Sync for TestProduct {}
-
 #[test]
 fn test_payload_serialize() {
     let product = TestProduct {
