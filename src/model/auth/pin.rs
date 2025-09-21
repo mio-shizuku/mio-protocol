@@ -27,8 +27,8 @@ impl From<&str> for Pin {
     }
 }
 
-impl Into<String> for Pin {
-    fn into(self) -> String {
-        self.code
+impl From<Pin> for String {
+    fn from(val: Pin) -> Self {
+        val.code
     }
 }
