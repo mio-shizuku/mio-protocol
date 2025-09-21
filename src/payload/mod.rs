@@ -1,6 +1,7 @@
-use action::PayloadAction;
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use std::fmt::Debug;
+
+use action::PayloadAction;
 
 pub mod action;
 pub mod error;
