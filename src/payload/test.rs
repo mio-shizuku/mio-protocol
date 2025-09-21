@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
 struct TestProduct {
     id: u32,
     name: String,
@@ -33,4 +33,28 @@ fn test_payload_serialize() {
     });
 
     assert_eq!(json, expected_json);
+}
+
+#[test]
+fn test_payload_deserialize() {
+    let json_data = serde_json::json!({
+        "data": {
+            "id": 2,
+            "name": "Another Product",
+            "items": ["ItemA", "ItemB"]
+        }
+    });
+
+    let payload: super::Payload<TestProduct> = match super::Payload::from_json(json_data) {
+        Ok(p) => p,
+        Err(e) => panic!("Failed to deserialize JSON to payload: {:?}", e),
+    };
+
+    let expected_payload = super::Payload::new(TestProduct {
+        id: 2,
+        name: "Another Product".to_string(),
+        items: vec!["ItemA".to_string(), "ItemB".to_string()],
+    });
+
+    assert_eq!(payload, expected_payload);
 }
