@@ -10,7 +10,7 @@ struct TestProduct {
 }
 
 #[test]
-fn test_payload_serialize() {
+fn test_payload_json_serialize() {
     let product = TestProduct {
         id: 1,
         name: "Test Product".to_string(),
@@ -36,7 +36,7 @@ fn test_payload_serialize() {
 }
 
 #[test]
-fn test_payload_deserialize() {
+fn test_payload_json_deserialize() {
     let json_data = serde_json::json!({
         "action": "test",
         "data": {
