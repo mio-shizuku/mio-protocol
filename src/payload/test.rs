@@ -25,9 +25,11 @@ fn test_payload_serialize() {
     };
 
     let expected_json = serde_json::json!({
-        "id": 1,
-        "name": "Test Product",
-        "items": ["Item1", "Item2"]
+        "data": {
+            "id": 1,
+            "name": "Test Product",
+            "items": ["Item1", "Item2"]
+        }
     });
 
     assert_eq!(json, expected_json);
