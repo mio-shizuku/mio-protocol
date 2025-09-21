@@ -56,3 +56,16 @@ where
         })
     }
 }
+
+impl<T> Payload<T>
+where
+    T: Serialize + DeserializeOwned + Send + Sync + Debug + PartialEq + Eq,
+{
+    pub fn action(&self) -> &PayloadAction {
+        &self.action
+    }
+
+    pub fn data(&self) -> &T {
+        &self.data
+    }
+}
