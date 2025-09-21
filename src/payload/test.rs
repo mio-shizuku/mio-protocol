@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::payload::action::PayloadAction;
+use crate::payload::{Payload, action::PayloadAction};
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
 struct TestProduct {
@@ -17,11 +17,10 @@ fn test_payload_json_serialize() {
         items: vec!["Item1".to_string(), "Item2".to_string()],
     };
 
-    let payload = super::Payload::new(PayloadAction::Test, product);
-    let json = match payload.to_json() {
-        Ok(json_value) => json_value,
-        Err(e) => panic!("Failed to serialize payload to JSON: {:?}", e),
-    };
+    let payload = Payload::new(PayloadAction::Test, product);
+    let json = payload
+        .to_json()
+        .expect("Failed to serialize payload to JSON");
 
     let expected_json = serde_json::json!({
         "action": "test",
@@ -43,11 +42,10 @@ fn test_payload_string_serialize() {
         items: vec!["Item1".to_string(), "Item2".to_string()],
     };
 
-    let payload = super::Payload::new(PayloadAction::Test, product);
-    let json_string = match payload.to_json_string() {
-        Ok(json_str) => json_str,
-        Err(e) => panic!("Failed to serialize payload to JSON string: {:?}", e),
-    };
+    let payload = Payload::new(PayloadAction::Test, product);
+    let json_string = payload
+        .to_json_string()
+        .expect("Failed to serialize payload to JSON string");
 
     let expected_json_string =
         r#"{"action":"test","data":{"id":2,"name":"Test Product","items":["Item1","Item2"]}}"#;
@@ -66,10 +64,8 @@ fn test_payload_json_deserialize() {
         }
     });
 
-    let payload: super::Payload<TestProduct> = match super::Payload::from_json(json_data) {
-        Ok(p) => p,
-        Err(e) => panic!("Failed to deserialize JSON to payload: {:?}", e),
-    };
+    let payload: Payload<TestProduct> =
+        Payload::from_json(json_data).expect("Failed to deserialize JSON to payload");
 
     let expected_payload = super::Payload::new(
         PayloadAction::Test,
@@ -88,10 +84,8 @@ fn test_payload_string_deserialize() {
     let json_string =
         r#"{"action":"test","data":{"id":4,"name":"String Product","items":["ItemX","ItemY"]}}"#;
 
-    let payload: super::Payload<TestProduct> = match super::Payload::from_json_string(json_string) {
-        Ok(p) => p,
-        Err(e) => panic!("Failed to deserialize JSON string to payload: {:?}", e),
-    };
+    let payload: Payload<TestProduct> = Payload::from_json_string(json_string)
+        .expect("Failed to deserialize JSON string to payload");
 
     let expected_payload = super::Payload::new(
         PayloadAction::Test,
