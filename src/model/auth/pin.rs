@@ -9,4 +9,8 @@ impl Pin {
     pub fn new(code: String) -> Self {
         Pin { code }
     }
+
+    pub fn code(&self) -> &str {
+        &self.code
+    }
 }
