@@ -1,7 +1,9 @@
+use action::PayloadAction;
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use std::fmt::Debug;
 
-mod error;
+pub mod action;
+pub mod error;
 #[cfg(test)]
 mod test;
 
@@ -11,6 +13,7 @@ pub struct Payload<T>
 where
     T: Serialize + DeserializeOwned + Send + Sync + Debug + PartialEq + Eq,
 {
+    action: PayloadAction,
     data: T,
 }
 
@@ -18,8 +21,8 @@ impl<T> Payload<T>
 where
     T: Serialize + DeserializeOwned + Send + Sync + Debug + PartialEq + Eq,
 {
-    pub const fn new(data: T) -> Self {
-        Payload { data }
+    pub const fn new(action: PayloadAction, data: T) -> Self {
+        Payload { action, data }
     }
 
     pub fn from_json(json: serde_json::Value) -> Result<Self, error::PayloadError> {

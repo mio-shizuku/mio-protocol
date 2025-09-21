@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::payload::action::PayloadAction;
+
 #[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
 struct TestProduct {
     id: u32,
@@ -15,13 +17,14 @@ fn test_payload_serialize() {
         items: vec!["Item1".to_string(), "Item2".to_string()],
     };
 
-    let payload = super::Payload::new(product);
+    let payload = super::Payload::new(PayloadAction::Test, product);
     let json = match payload.to_json() {
         Ok(json_value) => json_value,
         Err(e) => panic!("Failed to serialize payload to JSON: {:?}", e),
     };
 
     let expected_json = serde_json::json!({
+        "action": "test",
         "data": {
             "id": 1,
             "name": "Test Product",
@@ -35,6 +38,7 @@ fn test_payload_serialize() {
 #[test]
 fn test_payload_deserialize() {
     let json_data = serde_json::json!({
+        "action": "test",
         "data": {
             "id": 2,
             "name": "Another Product",
@@ -47,11 +51,14 @@ fn test_payload_deserialize() {
         Err(e) => panic!("Failed to deserialize JSON to payload: {:?}", e),
     };
 
-    let expected_payload = super::Payload::new(TestProduct {
-        id: 2,
-        name: "Another Product".to_string(),
-        items: vec!["ItemA".to_string(), "ItemB".to_string()],
-    });
+    let expected_payload = super::Payload::new(
+        PayloadAction::Test,
+        TestProduct {
+            id: 2,
+            name: "Another Product".to_string(),
+            items: vec!["ItemA".to_string(), "ItemB".to_string()],
+        },
+    );
 
     assert_eq!(payload, expected_payload);
 }
