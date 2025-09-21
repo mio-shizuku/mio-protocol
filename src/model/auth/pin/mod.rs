@@ -1,5 +1,8 @@
 use serde::{Deserialize, Serialize};
 
+#[cfg(test)]
+mod test;
+
 #[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
 pub struct Pin {
     code: String,
