@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::payload::{Payload, action::PayloadAction};
+use crate::payload::{action::PayloadAction, Payload};
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
 struct TestProduct {
