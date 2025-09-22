@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 
 pub mod cpu;
-pub mod memory;
 pub mod disk;
+pub mod memory;
 pub mod network;
 
 #[cfg(test)]
@@ -10,8 +10,8 @@ mod test;
 
 use cpu::CpuInfo;
 use disk::DiskInfo;
-use network::NetworkInfo;
 use memory::MemoryInfo;
+use network::NetworkInfo;
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct SystemInfo {
