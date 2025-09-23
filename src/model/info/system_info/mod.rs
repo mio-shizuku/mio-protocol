@@ -16,7 +16,7 @@ use network::NetworkInfo;
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct SystemInfo {
     uptime_secs: u64,
-    load_avg: (i64, i64, i64), // (one, five, fifteen)
+    load_avg: (u64, u64, u64), // (one, five, fifteen)
     cpu: cpu::CpuInfo,
     memory: memory::MemoryInfo,
     disks: Vec<disk::DiskInfo>,
@@ -26,7 +26,7 @@ pub struct SystemInfo {
 impl SystemInfo {
     pub fn new(
         uptime_secs: u64,
-        load_avg: (i64, i64, i64),
+        load_avg: (u64, u64, u64),
         cpu: CpuInfo,
         memory: MemoryInfo,
         disks: Vec<DiskInfo>,

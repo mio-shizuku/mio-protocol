@@ -20,22 +20,22 @@ fn test_system_info_payload() {
             "load_avg": [4, 1, 2],
             "cpu": {
                 "cpu_cores": 2,
-                "cpu_usage": [10, 20],
+                "cpu_usage_x100": [10, 20],
                 "cpu_freq": [1000, 2000],
-                "average_cpu_usage": 15,
+                "average_cpu_usage_x100": 15,
                 "average_cpu_freq": 1500
             },
             "memory": {
-                "total_memory_gb": 8192,
-                "used_memory_gb": 4096,
-                "total_swap_gb": 4096,
-                "used_swap_gb": 2048
+                "total_memory_mb": 8192,
+                "used_memory_mb": 4096,
+                "total_swap_mb": 4096,
+                "used_swap_mb": 2048
             },
             "disks": [
                 {
                     "mount_point": "/dev/sda1",
-                    "total_gb": 256,
-                    "available_gb": 128,
+                    "total_mb": 256,
+                    "available_mb": 128,
                 }
             ],
             "networks": [
