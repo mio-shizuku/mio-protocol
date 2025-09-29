@@ -7,8 +7,8 @@ pub enum PayloadError {
 impl std::fmt::Display for PayloadError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            PayloadError::SerializationError(e) => write!(f, "Serialization error: {:?}", e),
-            PayloadError::DeserializationError(e) => write!(f, "Deserialization error: {:?}", e),
+            PayloadError::SerializationError(e) => write!(f, "Serialization error: {}", e),
+            PayloadError::DeserializationError(e) => write!(f, "Deserialization error: {}", e),
         }
     }
 }
