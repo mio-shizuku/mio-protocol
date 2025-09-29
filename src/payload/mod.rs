@@ -26,13 +26,19 @@ where
         Payload { action, data }
     }
 
-    pub fn from_json(json: serde_json::Value) -> Result<Self, error::PayloadError> {
+    pub fn from_json<U>(json: serde_json::Value) -> Result<Payload<U>, error::PayloadError>
+    where
+        U: Serialize + DeserializeOwned + Send + Sync + Debug + PartialEq + Eq,
+    {
         serde_json::from_value(json).map_err(|e| {
             error::PayloadError::DeserializationError(error::DeserializationError::JsonError(e))
         })
     }
 
-    pub fn from_json_string(json: &str) -> Result<Self, error::PayloadError> {
+    pub fn from_json_string<U>(json: &str) -> Result<Payload<U>, error::PayloadError>
+    where
+        U: Serialize + DeserializeOwned + Send + Sync + Debug + PartialEq + Eq,
+    {
         serde_json::from_str(json).map_err(|e| {
             error::PayloadError::DeserializationError(error::DeserializationError::JsonError(e))
         })

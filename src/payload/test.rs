@@ -64,8 +64,8 @@ fn test_payload_json_deserialize() {
         }
     });
 
-    let payload: Payload<TestProduct> =
-        Payload::from_json(json_data).expect("Failed to deserialize JSON to payload");
+    let payload = Payload::<TestProduct>::from_json(json_data)
+        .expect("Failed to deserialize JSON to payload");
 
     let expected_payload = super::Payload::new(
         PayloadAction::Test,
@@ -84,7 +84,7 @@ fn test_payload_string_deserialize() {
     let json_string =
         r#"{"action":"test","data":{"id":4,"name":"String Product","items":["ItemX","ItemY"]}}"#;
 
-    let payload: Payload<TestProduct> = Payload::from_json_string(json_string)
+    let payload = Payload::<TestProduct>::from_json_string(json_string)
         .expect("Failed to deserialize JSON string to payload");
 
     let expected_payload = super::Payload::new(
