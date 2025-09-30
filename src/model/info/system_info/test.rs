@@ -8,44 +8,48 @@ fn test_system_info_payload() {
         vec![super::DiskInfo::new("/dev/sda1".to_string(), 256, 128)],
         vec![super::NetworkInfo::new("eth0".to_string(), 1024, 512)],
     );
+
     let payload =
         crate::payload::Payload::new(crate::payload::action::PayloadAction::Info, system_info);
+
     let json = payload
         .to_json()
         .expect("Failed to serialize payload to JSON");
+
     let expected_json = serde_json::json!({
         "action": "info",
         "data": {
-            "uptime_secs": 8,
+            "uptime": 8,
             "load_avg": [4, 1, 2],
             "cpu": {
-                "cpu_cores": 2,
-                "cpu_usage_x100": [10, 20],
-                "cpu_freq": [1000, 2000],
-                "average_cpu_usage_x100": 15,
-                "average_cpu_freq": 1500
+                "cores": 2,
+                "usages": [10, 20],
+                "freqs": [1000, 2000],
+                "usage_avg": 15,
+                "freq_avg": 1500
             },
             "memory": {
-                "total_memory_mb": 8192,
-                "used_memory_mb": 4096,
-                "total_swap_mb": 4096,
-                "used_swap_mb": 2048
+                "ram": 8192,
+                "ram_used": 4096,
+                "swap": 4096,
+                "swap_used": 2048
             },
             "disks": [
                 {
-                    "mount_point": "/dev/sda1",
-                    "total_mb": 256,
-                    "available_mb": 128,
+                    "mount": "/dev/sda1",
+                    "total": 256,
+                    "free": 128,
                 }
             ],
             "networks": [
                 {
-                    "name": "eth0",
-                    "received_mb": 1024,
-                    "transmitted_mb": 512
+                    "interface": "eth0",
+                    "rx": 1024,
+                    "tx": 512
                 }
             ]
         }
     });
+
     assert_eq!(json, expected_json);
 }

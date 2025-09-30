@@ -2,24 +2,23 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct MemoryInfo {
-    total_memory_mb: u64,
-    used_memory_mb: u64,
-    total_swap_mb: u64,
-    used_swap_mb: u64,
+    #[serde(rename = "ram")]
+    ram_total_mb: u64,
+    #[serde(rename = "ram_used")]
+    ram_used_mb: u64,
+    #[serde(rename = "swap")]
+    swap_total_mb: u64,
+    #[serde(rename = "swap_used")]
+    swap_used_mb: u64,
 }
 
 impl MemoryInfo {
-    pub fn new(
-        total_memory_mb: u64,
-        used_memory_mb: u64,
-        total_swap_mb: u64,
-        used_swap_mb: u64,
-    ) -> Self {
+    pub fn new(ram_total_mb: u64, ram_used_mb: u64, swap_total_mb: u64, swap_used_mb: u64) -> Self {
         Self {
-            total_memory_mb,
-            used_memory_mb,
-            total_swap_mb,
-            used_swap_mb,
+            ram_total_mb,
+            ram_used_mb,
+            swap_total_mb,
+            swap_used_mb,
         }
     }
 }

@@ -2,27 +2,32 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct CpuInfo {
-    cpu_cores: usize,
-    cpu_usage_x100: Vec<u32>,
-    cpu_freq: Vec<u64>,
-    average_cpu_usage_x100: u32,
-    average_cpu_freq: u64,
+    #[serde(rename = "cores")]
+    cores: usize,
+    #[serde(rename = "usages")]
+    usage_percents: Vec<u32>,
+    #[serde(rename = "freqs")]
+    frequencies: Vec<u64>,
+    #[serde(rename = "usage_avg")]
+    usage_average_percent: u32,
+    #[serde(rename = "freq_avg")]
+    frequency_average: u64,
 }
 
 impl CpuInfo {
     pub fn new(
-        cpu_cores: usize,
-        cpu_usage_x100: Vec<u32>,
-        cpu_freq: Vec<u64>,
-        average_cpu_usage_x100: u32,
-        average_cpu_freq: u64,
+        cores: usize,
+        usage_percents: Vec<u32>,
+        frequencies: Vec<u64>,
+        usage_average_percent: u32,
+        frequency_average: u64,
     ) -> Self {
         Self {
-            cpu_cores,
-            cpu_usage_x100,
-            cpu_freq,
-            average_cpu_usage_x100,
-            average_cpu_freq,
+            cores,
+            usage_percents,
+            frequencies,
+            usage_average_percent,
+            frequency_average,
         }
     }
 }
