@@ -4,6 +4,8 @@ use serde::{Deserialize, Serialize};
 pub enum PayloadAction {
     #[serde(rename = "auth")]
     Auth,
+    #[serde(rename = "info")]
+    Info,
     #[serde(rename = "test")]
     Test,
 }
