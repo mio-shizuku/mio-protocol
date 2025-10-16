@@ -1,2 +1,6 @@
+# direnv
+/.direnv
+
+# build output
 /Cargo.lock
 /target
