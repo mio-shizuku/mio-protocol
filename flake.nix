@@ -10,12 +10,12 @@
     in {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = with pkgs; [ rustup ];
-      };
 
-      shellHook = ''
-        rustup default stable
-        echo "Nix dev shell"
-      '';
+        shellHook = ''
+          rustup default stable
+          echo "Nix dev shell"
+        '';
+      };
     };
 }
 
